@@ -12,9 +12,13 @@ app.use(cors(corOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//routers
+const router = require('./routes/productRoutes.js');
+app.use('/api/products', router);
+
 //tester
 app.get('/', (req, res) => {
-  res.res('hey');
+  res.send('hey');
 });
 
 const port = process.env.port || 4000;
