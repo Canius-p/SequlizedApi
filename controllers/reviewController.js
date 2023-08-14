@@ -2,22 +2,30 @@ const db = require('../models');
 
 const Review = db.reviews;
 
-//add review
-
+// add review
 const addReview = async (req, res) => {
-  let data = {
-    rating: req.body.rating,
-    description: req.body.description,
-  };
-  const review = await Review.create(data);
-  res.status(200).send(review);
+  try {
+    let data = {
+      rating: req.body.rating,
+      description: req.body.description,
+    };
+    const review = await Review.create(data);
+    res.status(200).send(review);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
 };
 
-//get all reviews
-
+// get all reviews
 const getAllReviews = async (req, res) => {
-  const reviews = await Review.findAll({});
-  res.status(200).send(reviews);
+  try {
+    const reviews = await Review.findAll({});
+    res.status(200).send(reviews);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
 };
 
 module.exports = {
